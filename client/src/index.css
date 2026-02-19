@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #CBF382; /* Lime accent */
+  --color-primary-foreground: #0B0C0E;
+  
+  --color-success: #10b981;
+  --color-danger: #ef4444; 
+  
+  --color-background: #0B0C0E; /* Very dark background */
+  --color-surface: #16181A; /* Sidebar/Panels */
+  --color-surface-hover: #1f2124;
+  
+  --color-border: #26282c;
+  --color-muted: #888888;
+  
+  --radius-xl: 1.5rem;
+  --radius-lg: 1rem;
+  --radius-md: 0.75rem;
+
+  --font-sans: "Inter", sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-background);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  overflow: hidden; /* Prevent body scroll */
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #444; }
+
+/* Global Utilities Override if needed */
+.bg-background { background-color: var(--color-background); }
+.bg-card { background-color: var(--color-surface); }
+.text-card-foreground { color: #ffffff; }
+.bg-popover { background-color: var(--color-surface); }
+.bg-secondary { background-color: var(--color-surface-hover); }
+.text-secondary-foreground { color: #ffffff; }
+.bg-muted { background-color: var(--color-muted); }
+.border-border { border-color: var(--color-border); }
+.text-muted-foreground { color: var(--color-muted); }
+.text-primary-foreground { color: var(--color-primary-foreground); }
