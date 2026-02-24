@@ -76,52 +76,52 @@ export default function SettingsModal({ isOpen, onClose }) {
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="sm:max-w-[425px] max-h-[90vh] flex flex-col">
+            <DialogContent className="w-[95vw] sm:w-full sm:max-w-md max-h-[90vh] flex flex-col p-4 sm:p-6">
                 <DialogHeader>
                     <DialogTitle>Edit Profile</DialogTitle>
                     <DialogDescription>
                         Make changes to your profile here. Click save when you're done.
                     </DialogDescription>
                 </DialogHeader>
-                <div className="grid gap-4 py-4 overflow-y-auto">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <SimpleLabel htmlFor="username" className="text-right">
+                <div className="grid gap-4 py-4 overflow-y-auto pr-1">
+                    <div className="flex flex-col sm:grid sm:grid-cols-4 sm:items-center gap-2 sm:gap-4">
+                        <SimpleLabel htmlFor="username" className="sm:text-right">
                             Username
                         </SimpleLabel>
                         <Input
                             id="username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            className="col-span-3"
+                            className="sm:col-span-3"
                         />
                     </div>
                     
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                         <SimpleLabel className="text-left block">
                             Profile Picture
                         </SimpleLabel>
-                        <div className="grid grid-cols-4 sm:grid-cols-5 gap-4 max-h-[300px] overflow-y-auto p-2 border rounded-md bg-secondary/10">
+                        <div className="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 gap-3 sm:gap-4 max-h-[250px] sm:max-h-[300px] overflow-y-auto p-3 border rounded-xl bg-secondary/5">
                             {AVATAR_PRESETS.map((avatar, index) => {
                                 const isSelected = selectedAvatar === avatar
                                 return (
                                     <div 
                                         key={index}
-                                        className={`relative cursor-pointer rounded-full transition-all duration-200 aspect-square flex items-center justify-center
+                                        className={`relative cursor-pointer rounded-full transition-all duration-200 aspect-square flex items-center justify-center border-2
                                             ${isSelected 
-                                                ? 'ring-2 ring-primary ring-offset-2 ring-offset-background scale-105' 
-                                                : 'hover:scale-105 hover:bg-muted/50 opacity-80 hover:opacity-100'
+                                                ? 'border-primary ring-2 ring-primary/20 scale-105 bg-primary/5' 
+                                                : 'border-transparent hover:border-border hover:bg-muted/30 opacity-80 hover:opacity-100'
                                             }`}
                                         onClick={() => setSelectedAvatar(avatar)}
                                     >
                                         <img 
                                             src={avatar} 
                                             alt={`Avatar ${index}`} 
-                                            className="h-full w-full rounded-full bg-muted/30"
+                                            className="h-full w-full rounded-full bg-muted/20 object-cover"
                                             loading="lazy"
                                         />
                                         {isSelected && (
-                                            <div className="absolute -bottom-1 -right-1 bg-primary text-primary-foreground rounded-full p-0.5 border-2 border-background shadow-sm">
-                                                <Check className="h-3 w-3" />
+                                            <div className="absolute -bottom-1 -right-1 bg-primary text-primary-foreground rounded-full p-1 border-2 border-background shadow-md">
+                                                <Check className="h-2.5 w-2.5" />
                                             </div>
                                         )}
                                     </div>

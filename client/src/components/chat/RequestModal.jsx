@@ -111,8 +111,8 @@ export default function RequestModal({ isOpen, onClose, onSuccess }) {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+      <div className="w-full max-w-md rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-2xl animate-in zoom-in-95 duration-200">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold">Add Connection</h2>
           <Button variant="ghost" size="icon" onClick={onClose}>

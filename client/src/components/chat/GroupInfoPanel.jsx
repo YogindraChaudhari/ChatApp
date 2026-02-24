@@ -104,7 +104,7 @@ export default function GroupInfoPanel() {
     const isAdmin = myRole === TIM.TYPES.GRP_MBR_ROLE_ADMIN || isOwner
 
     return (
-        <div className="w-80 h-full border-l border-border bg-card flex flex-col shadow-xl animate-in slide-in-from-right duration-200">
+        <div className="w-full md:w-80 h-full border-l border-border bg-card flex flex-col shadow-xl md:shadow-none animate-in slide-in-from-right duration-200">
             <div className="p-4 border-b border-border flex items-center justify-between bg-secondary/30">
                 <h2 className="font-semibold text-lg">{activeRoom.username}</h2>
                 <Button variant="ghost" size="icon" onClick={() => setGroupInfoOpen(false)}>

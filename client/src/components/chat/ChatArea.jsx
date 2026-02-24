@@ -648,24 +648,32 @@ export default function ChatArea() {
   return (
     <div className="flex flex-1 flex-col bg-background">
       {/* Header */}
-      <div className="flex h-16 items-center justify-between border-b border-border px-6">
-        <div className="flex items-center gap-3">
+      <div className="flex h-16 items-center justify-between border-b border-border px-4 md:px-6">
+        <div className="flex items-center gap-2 md:gap-3 overflow-hidden">
+            <Button 
+                variant="ghost" 
+                size="icon" 
+                className="md:hidden shrink-0" 
+                onClick={() => setActiveRoom(null)}
+            >
+                <ChevronLeft className="h-6 w-6" />
+            </Button>
             <img
                 src={activeRoom.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${activeRoom.username}`}
                 alt={activeRoom.username}
-                className="h-10 w-10 rounded-full bg-secondary"
+                className="h-9 w-9 md:h-10 md:w-10 rounded-full bg-secondary shrink-0"
             />
-            <div>
-                <h2 className="font-semibold">{activeRoom.username}</h2>
+            <div className="min-w-0">
+                <h2 className="font-semibold truncate text-sm md:text-base">{activeRoom.username}</h2>
                 {isTyping ? (
-                    <span className="text-xs text-primary animate-pulse font-bold flex items-center gap-1">
+                    <span className="text-[10px] md:text-xs text-primary animate-pulse font-bold flex items-center gap-1">
                         Typing...
                     </span>
                 ) : (
                     activeRoom.type === 'GROUP' ? (
-                        <span className="text-xs text-muted-foreground">Group Chat</span>
+                        <span className="text-[10px] md:text-xs text-muted-foreground whitespace-nowrap">Group Chat</span>
                     ) : (
-                        <span className={`text-xs flex items-center gap-1 ${userStatus === 'Online' ? 'text-green-500' : 'text-muted-foreground'}`}>
+                        <span className={`text-[10px] md:text-xs flex items-center gap-1 ${userStatus === 'Online' ? 'text-green-500' : 'text-muted-foreground'} whitespace-nowrap`}>
                             <span className={`h-1.5 w-1.5 rounded-full ${userStatus === 'Online' ? 'bg-green-500' : 'bg-gray-400'}`}></span>
                             {userStatus}
                         </span>
@@ -714,7 +722,7 @@ export default function ChatArea() {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
+      <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4">
         {messages.map((msg) => {
             // 1. Handle Group Tips
             if (msg.type === TIM.TYPES.MSG_GRP_TIP) {

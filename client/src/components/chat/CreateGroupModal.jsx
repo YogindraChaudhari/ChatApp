@@ -80,7 +80,7 @@ export default function CreateGroupModal({ isOpen, onClose }) {
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="w-[95vw] sm:w-full sm:max-w-md max-h-[90vh] flex flex-col p-4 sm:p-6">
                 <DialogHeader>
                     <DialogTitle>Create New Group</DialogTitle>
                     <DialogDescription>
@@ -88,20 +88,21 @@ export default function CreateGroupModal({ isOpen, onClose }) {
                     </DialogDescription>
                 </DialogHeader>
                 
-                <div className="grid gap-6 py-4">
-                    <div className="space-y-8">
-                        <label htmlFor="name" className="text-sm font-medium">Group Name</label>
+                <div className="grid gap-5 py-4 overflow-y-auto pr-1">
+                    <div className="space-y-2">
+                        <label htmlFor="name" className="text-sm font-medium text-muted-foreground uppercase tracking-wider ml-1">Group Name</label>
                         <Input 
                             id="name" 
                             value={groupName} 
                             onChange={(e) => setGroupName(e.target.value)}
                             placeholder="e.g. Project Alpha"
+                            className="bg-secondary/20 border-border"
                         />
                     </div>
                     
-                    <div className="space-y-8">
-                        <label className="text-sm font-medium">Select Members</label>
-                        <div className="border rounded-md max-h-[300px] overflow-y-auto p-2 space-y-1 bg-card">
+                    <div className="space-y-3">
+                        <label className="text-sm font-medium text-muted-foreground uppercase tracking-wider ml-1">Select Members</label>
+                        <div className="border border-border rounded-xl max-h-[250px] sm:max-h-[300px] overflow-y-auto p-2 space-y-1 bg-secondary/10">
                             {users.length === 0 ? (
                                 <p className="text-sm text-muted-foreground p-4 text-center">No connections available.</p>
                             ) : (
@@ -149,9 +150,9 @@ export default function CreateGroupModal({ isOpen, onClose }) {
                     </div>
                 </div>
 
-                <DialogFooter>
-                    <Button variant="outline" onClick={onClose} disabled={loading}>Cancel</Button>
-                    <Button onClick={handleCreate} disabled={loading || !groupName.trim()}>
+                <DialogFooter className="gap-2 sm:gap-0">
+                    <Button variant="outline" onClick={onClose} disabled={loading} className="w-full sm:w-auto">Cancel</Button>
+                    <Button onClick={handleCreate} disabled={loading || !groupName.trim()} className="w-full sm:w-auto font-semibold">
                         {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                         Create & Invite
                     </Button>

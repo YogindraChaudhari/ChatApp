@@ -163,7 +163,7 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="flex h-full w-80 flex-col border-r border-border bg-card">
+    <div className="flex h-full w-full flex-col bg-card">
       <div className="flex h-16 items-center justify-between border-b border-border px-4">
         <h1 className="text-xl font-bold text-primary">NexusChat</h1>
         <div className="flex gap-1">

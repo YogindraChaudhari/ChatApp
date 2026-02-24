@@ -7,7 +7,7 @@ import useStore from '../store/useStore'
 import ErrorBoundary from '../components/ErrorBoundary'
 
 function Home() {
-  const { user } = useStore()
+  const { user, activeRoom, isGroupInfoOpen } = useStore()
   useTencent() // Initialize IM/RTC
 
   if (!user) return null
@@ -15,9 +15,17 @@ function Home() {
   return (
     <ErrorBoundary>
       <div className="flex h-screen w-full overflow-hidden bg-background">
-        <Sidebar />
-        <ChatArea />
-        <GroupInfoPanel />
+        <div className={`${activeRoom ? 'hidden md:flex' : 'flex'} w-full md:w-80 h-full border-r border-border`}>
+            <Sidebar />
+        </div>
+        <div className={`${activeRoom ? 'flex' : 'hidden md:flex'} flex-1 h-full`}>
+            <ChatArea />
+        </div>
+        {activeRoom?.type === 'GROUP' && (
+            <div className={`${isGroupInfoOpen ? 'flex' : 'hidden'} fixed inset-0 z-50 md:relative md:inset-auto md:flex md:w-80 h-full`}>
+                <GroupInfoPanel />
+            </div>
+        )}
       </div>
     </ErrorBoundary>
   )
