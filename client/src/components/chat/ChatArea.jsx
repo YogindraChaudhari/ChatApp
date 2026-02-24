@@ -14,6 +14,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "../ui/dropdown-menu"
 import {
   AlertDialog,
@@ -672,7 +673,7 @@ export default function ChatArea() {
                 alt={activeRoom.username}
                 className="h-9 w-9 md:h-10 md:w-10 rounded-full bg-secondary shrink-0"
             />
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
                 <h2 className="font-semibold truncate text-sm md:text-base">{activeRoom.username}</h2>
                 {isTyping ? (
                     <span className="text-[10px] md:text-xs text-primary animate-pulse font-bold flex items-center gap-1">
@@ -680,7 +681,7 @@ export default function ChatArea() {
                     </span>
                 ) : (
                     activeRoom.type === 'GROUP' ? (
-                        <span className="text-[10px] md:text-xs text-muted-foreground whitespace-nowrap">Group Chat</span>
+                        <span className="text-[10px] md:text-xs text-muted-foreground whitespace-nowrap block truncate">Group Chat</span>
                     ) : (
                         <span className={`text-[10px] md:text-xs flex items-center gap-1 ${userStatus === 'Online' ? 'text-green-500' : 'text-muted-foreground'} whitespace-nowrap`}>
                             <span className={`h-1.5 w-1.5 rounded-full ${userStatus === 'Online' ? 'bg-green-500' : 'bg-gray-400'}`}></span>
@@ -690,11 +691,11 @@ export default function ChatArea() {
                 )}
             </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             {activeRoom.type === 'GROUP' && (
                 <>
                     {isGroupAdmin && (
-                        <Button variant="ghost" size="icon" onClick={() => setIsInviteModalOpen(true)} title="Invite Members">
+                        <Button variant="ghost" size="icon" onClick={() => setIsInviteModalOpen(true)} title="Invite Members" className="hidden md:flex">
                             <UserPlus className="h-5 w-5 text-muted-foreground hover:text-primary" />
                         </Button>
                     )}
@@ -703,10 +704,10 @@ export default function ChatArea() {
                     </Button>
                 </>
             )}
-            <Button variant="ghost" size="icon" onClick={() => console.log('Voice')}>
+            <Button variant="ghost" size="icon" onClick={() => console.log('Voice')} className="hidden md:flex">
                 <Phone className="h-5 w-5 text-muted-foreground hover:text-primary" />
             </Button>
-            <Button variant="ghost" size="icon" onClick={handleVideoCall}>
+            <Button variant="ghost" size="icon" onClick={handleVideoCall} className="hidden md:flex">
                 <Video className="h-5 w-5 text-muted-foreground hover:text-primary" />
             </Button>
             
@@ -716,7 +717,24 @@ export default function ChatArea() {
                     <MoreVertical className="h-5 w-5 text-muted-foreground" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent align="end" className="w-52">
+                <div className="md:hidden">
+                    {activeRoom.type === 'GROUP' && isGroupAdmin && (
+                        <DropdownMenuItem onClick={() => setIsInviteModalOpen(true)}>
+                            <UserPlus className="mr-2 h-4 w-4" />
+                            Invite Members
+                        </DropdownMenuItem>
+                    )}
+                    <DropdownMenuItem onClick={() => console.log('Voice')}>
+                        <Phone className="mr-2 h-4 w-4" />
+                        Voice Call
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleVideoCall}>
+                        <Video className="mr-2 h-4 w-4" />
+                        Video Call
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                </div>
                 <DropdownMenuItem onClick={() => setIsRemoveConnectionOpen(true)} className="text-destructive">
                     <UserMinus className="mr-2 h-4 w-4" />
                     Remove Connection
@@ -731,13 +749,13 @@ export default function ChatArea() {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4">
+      <div className="flex-1 overflow-y-auto p-3 md:p-6 space-y-4">
         {messages.map((msg) => {
             // 1. Handle Group Tips
             if (msg.type === TIM.TYPES.MSG_GRP_TIP) {
                  return (
-                     <div key={msg.ID || msg.id} className="flex justify-center my-2">
-                         <span className="text-xs text-muted-foreground bg-secondary/50 px-3 py-1 rounded-full">
+                     <div key={msg.ID || msg.id} className="flex justify-center my-2 px-6">
+                         <span className="text-[10px] md:text-xs text-muted-foreground bg-secondary/30 px-3 py-1 rounded-full text-center">
                              {renderGroupTip(msg)}
                          </span>
                      </div>
@@ -785,7 +803,7 @@ export default function ChatArea() {
                          </Button>
                     )}
 
-                    <div className={`flex flex-col max-w-[85%] md:max-w-[70%] ${isMyMessage ? 'items-end' : 'items-start'}`}>
+                    <div className={`flex flex-col max-w-[80%] md:max-w-[70%] ${isMyMessage ? 'items-end' : 'items-start'}`}>
                          {/* Name for Group Chat (Incoming only) */}
                         {isGroup && !isMyMessage && (
                             <span className="text-[10px] text-muted-foreground ml-1 mb-1 truncate max-w-full">

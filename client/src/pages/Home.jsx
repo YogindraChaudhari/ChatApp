@@ -21,8 +21,8 @@ function Home() {
         <div className={`${activeRoom ? 'flex' : 'hidden md:flex'} flex-1 h-full`}>
             <ChatArea />
         </div>
-        {activeRoom?.type === 'GROUP' && (
-            <div className={`${isGroupInfoOpen ? 'flex' : 'hidden'} fixed inset-0 z-50 md:relative md:inset-auto md:flex md:w-80 h-full`}>
+        {activeRoom?.type === 'GROUP' && isGroupInfoOpen && (
+            <div className="fixed inset-0 z-50 flex md:relative md:inset-auto md:w-80 h-full">
                 <GroupInfoPanel />
             </div>
         )}
