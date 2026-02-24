@@ -8,6 +8,8 @@ import ErrorBoundary from './components/ErrorBoundary'
 
 import { Toaster } from 'react-hot-toast'
 
+import OfflineBanner from './components/OfflineBanner'
+
 function App() {
   const { user, setUser } = useStore()
 
@@ -29,6 +31,7 @@ function App() {
 
   return (
     <Router>
+      <OfflineBanner />
       <div className="min-h-screen bg-background text-foreground font-sans antialiased">
         <Toaster 
             position="top-right"
