@@ -309,8 +309,8 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <div className="border-t border-border p-4">
-        <div className="flex items-center justify-between mb-4">
+      <div className="border-t border-border p-4 shrink-0 bg-card pb-[calc(1rem+env(safe-area-inset-bottom))]">
+        <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
                 <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold overflow-hidden">
                     {user?.user_metadata?.avatar_url ? (

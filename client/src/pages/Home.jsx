@@ -14,7 +14,7 @@ function Home() {
 
   return (
     <ErrorBoundary>
-      <div className="flex h-screen w-full overflow-hidden bg-background">
+      <div className="flex h-dvh w-full overflow-hidden bg-background">
         <div className={`${activeRoom ? 'hidden md:flex' : 'flex'} w-full md:w-80 h-full border-r border-border`}>
             <Sidebar />
         </div>

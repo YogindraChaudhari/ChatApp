@@ -51,6 +51,13 @@ const FILE_ICONS = {
     'default': File
 }
 
+const formatFileName = (name) => {
+    if (!name || name.length <= 16) return name
+    const ext = name.split('.').pop()
+    const base = name.substring(0, 8)
+    return `${base}...${ext}`
+}
+
 export default function ChatArea() {
   const { activeRoom, user, tim, conversations, addMessage, setMessages, clearMessages, deleteMessage, isConnected, initError, typingUsers, lastSeenUsers, users, setUsers, setActiveRoom, setGroupInfoOpen, isGroupInfoOpen } = useStore()
   const [inputValue, setInputValue] = useState('')
@@ -613,15 +620,17 @@ export default function ChatArea() {
               } else {
                  const FileIcon = FILE_ICONS[data.name.split('.').pop().toLowerCase()] || FILE_ICONS['default']
                  return (
-                     <div className="flex items-center gap-3 p-2 bg-background/50 rounded-lg border border-border/50 min-w-[200px]">
-                         <div className="p-2 bg-background rounded-md shadow-sm">
+                     <div className="flex items-center gap-2 p-2 bg-background/20 rounded-xl border border-border/30 w-full max-w-full min-w-0 overflow-hidden">
+                         <div className="p-2 bg-background rounded-lg shadow-sm shrink-0">
                              <FileIcon className="h-5 w-5 text-primary" />
                          </div>
-                         <div className="flex-1 overflow-hidden">
-                             <p className="text-sm font-medium truncate">{data.name}</p>
-                             <p className="text-xs opacity-70">{(data.size / 1024).toFixed(1)} KB</p>
+                         <div className="flex-1 min-w-0 overflow-hidden">
+                             <p className="text-xs md:text-sm font-medium truncate" title={data.name}>
+                                 {formatFileName(data.name)}
+                             </p>
+                             <p className="text-[10px] opacity-70">{(data.size / 1024).toFixed(1)} KB</p>
                          </div>
-                         <a href={data.url} target="_blank" rel="noopener noreferrer" className="p-1.5 hover:bg-background rounded-full transition-colors">
+                         <a href={data.url} target="_blank" rel="noopener noreferrer" className="p-1.5 hover:bg-background rounded-full transition-colors shrink-0">
                              <Download className="h-4 w-4 opacity-70" />
                          </a>
                      </div>
@@ -776,7 +785,7 @@ export default function ChatArea() {
                          </Button>
                     )}
 
-                    <div className={`flex flex-col max-w-[70%] ${isMyMessage ? 'items-end' : 'items-start'}`}>
+                    <div className={`flex flex-col max-w-[85%] md:max-w-[70%] ${isMyMessage ? 'items-end' : 'items-start'}`}>
                          {/* Name for Group Chat (Incoming only) */}
                         {isGroup && !isMyMessage && (
                             <span className="text-[10px] text-muted-foreground ml-1 mb-1 truncate max-w-full">
@@ -784,8 +793,8 @@ export default function ChatArea() {
                             </span>
                         )}
 
-                        <div
-                            className={`rounded-lg px-4 py-2 w-full break-words ${
+                         <div
+                            className={`rounded-2xl px-3 py-2 md:px-4 md:py-2 w-full break-words overflow-hidden ${
                                 isMyMessage
                                     ? 'bg-primary text-primary-foreground rounded-br-none'
                                     : 'bg-secondary text-secondary-foreground rounded-bl-none'
