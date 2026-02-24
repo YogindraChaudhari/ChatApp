@@ -11,6 +11,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'Logo.png', 'Logo.svg'],
+      workbox: {
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, 
+      },
       manifest: {
         name: 'NexusChat',
         short_name: 'NexusChat',
@@ -39,6 +42,24 @@ export default defineConfig({
       }
     })
   ],
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('tim-js-sdk') || id.includes('trtc-js-sdk')) {
+              return 'tencent-sdk';
+            }
+            if (id.includes('@supabase')) {
+              return 'supabase';
+            }
+            return 'vendor';
+          }
+        }
+      }
+    }
+  },
   server: {
     proxy: {
       '/api': 'http://localhost:3000'
